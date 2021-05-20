@@ -17,3 +17,8 @@ const kMessageContainerDecoration = BoxDecoration(
     top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
   ),
 );
+
+const kCorAzul = Color.fromRGBO(32, 31, 50, 10);
+const kCorRoxo = Color.fromRGBO(84, 47, 99, 10);
+const kCorVermelho = Color.fromRGBO(255, 24, 33, 10);
+const kCorBrancoAmarelado = Color.fromRGBO(247, 247, 240, 10);

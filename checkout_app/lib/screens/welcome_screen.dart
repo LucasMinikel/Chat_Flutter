@@ -1,7 +1,10 @@
+import 'package:checkout_app/constants.dart';
+import 'package:checkout_app/screens/login_screen.dart';
+import 'package:checkout_app/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  static String id = 'welcome_screen';
+  static const String id = 'welcome_screen';
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
@@ -10,24 +13,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kCorAzul,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: Image.asset('resources/img/logo.png'),
-                  height: 60.0,
-                ),
-                Text(
-                  'Flash Chat',
-                  style: TextStyle(
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Image.asset('resources/img/logo.png'),
+                    width: 400,
                   ),
                 ),
               ],
@@ -39,16 +38,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
                 elevation: 5.0,
-                color: Colors.lightBlueAccent,
+                color: kCorVermelho,
                 borderRadius: BorderRadius.circular(30.0),
                 child: MaterialButton(
                   onPressed: () {
-                    //Go to login screen.
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
-                  minWidth: 200.0,
-                  height: 42.0,
+                  minWidth: 300,
+                  height: 50,
                   child: Text(
-                    'Log In',
+                    'ENTRAR',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -56,17 +56,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
-                color: Colors.blueAccent,
+                color: kCorVermelho,
                 borderRadius: BorderRadius.circular(30.0),
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () {
-                    //Go to registration screen.
+                    Navigator.pushNamed(context, RegistrationScreen.id);
                   },
-                  minWidth: 200.0,
-                  height: 42.0,
+                  minWidth: 300,
+                  height: 50,
                   child: Text(
-                    'Register',
+                    'CRIAR CONTA',
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ),

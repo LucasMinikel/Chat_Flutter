@@ -1,7 +1,9 @@
+import 'package:checkout_app/constants.dart';
+import 'package:checkout_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  static String id = 'registration_screen';
+  static const String id = 'registration_screen';
   @override
   _RegistrationScreenState createState() => _RegistrationScreenState();
 }
@@ -10,37 +12,41 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kCorAzul,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: 200.0,
-              child: Image.asset('resources/img/logo.png'),
+            Hero(
+              tag: 'logo',
+              child: Container(
+                height: 200.0,
+                child: Image.asset('resources/img/logo.png'),
+              ),
             ),
             SizedBox(
               height: 48.0,
             ),
             TextField(
+              style: TextStyle(color: Colors.white),
               onChanged: (value) {
                 //Do something with the user input.
               },
               decoration: InputDecoration(
-                hintText: 'Enter your email',
+                hintText: 'Digite seu email.',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+                  borderSide: BorderSide(color: kCorRoxo, width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                  borderSide: BorderSide(color: kCorRoxo, width: 2.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
               ),
@@ -49,22 +55,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
+              style: TextStyle(color: Colors.white),
               onChanged: (value) {
                 //Do something with the user input.
               },
               decoration: InputDecoration(
-                hintText: 'Enter your password',
+                hintText: 'Digite sua senha.',
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+                  borderSide: BorderSide(color: kCorRoxo, width: 1.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+                  borderSide: BorderSide(color: kCorRoxo, width: 2.0),
                   borderRadius: BorderRadius.all(Radius.circular(32.0)),
                 ),
               ),
@@ -75,18 +82,39 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
               child: Material(
-                color: Colors.blueAccent,
+                color: kCorVermelho,
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 elevation: 5.0,
                 child: MaterialButton(
                   onPressed: () {
                     //Implement registration functionality.
                   },
-                  minWidth: 200.0,
-                  height: 42.0,
+                  minWidth: 300,
+                  height: 50,
                   child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
+                    'CRIAR',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: Material(
+                color: kCorVermelho,
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                elevation: 5.0,
+                child: MaterialButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, WelcomeScreen.id);
+                  },
+                  minWidth: 300,
+                  height: 50,
+                  child: Text(
+                    'VOLTAR',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
