@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "968613283409",
+    "project_id": "checkout-rh-app",
+    "storage_bucket": "checkout-rh-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968613283409:android:624c4bfc2137a517961a70",
+        "android_client_info": {
+          "package_name": "com.checkout.checkout_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968613283409-t1pacfgdc9h66ea1kflltc0tjbsn04pq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzNgNLTduK705D7c-DSjDEbW8vosS8GfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968613283409-t1pacfgdc9h66ea1kflltc0tjbsn04pq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
