@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const kCorAzulCheckout = Color.fromRGBO(32, 31, 50, 10);
+const kCorRoxoCheckout = Color.fromRGBO(84, 47, 99, 10);
+const kCorVermelhoCheckout = Color.fromRGBO(255, 24, 33, 10);
+
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
@@ -18,7 +22,19 @@ const kMessageContainerDecoration = BoxDecoration(
   ),
 );
 
-const kCorAzul = Color.fromRGBO(32, 31, 50, 10);
-const kCorRoxo = Color.fromRGBO(84, 47, 99, 10);
-const kCorVermelho = Color.fromRGBO(255, 24, 33, 10);
-const kCorBrancoAmarelado = Color.fromRGBO(247, 247, 240, 10);
+const kTextFieldDecoration = InputDecoration(
+  hintText: 'Digite um valor.',
+  hintStyle: TextStyle(color: Colors.grey),
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: kCorRoxoCheckout, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: kCorRoxoCheckout, width: 2.0),
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+);
