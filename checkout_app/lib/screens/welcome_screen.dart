@@ -52,37 +52,44 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Hero(
-              tag: 'logo',
-              child: Container(
-                child: Image.asset('resources/img/logo.png'),
-                height: animation.value * 100,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Image.asset('resources/img/logo.png'),
+                    height: animation.value * 100,
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 48.0,
             ),
-            Container(
-              alignment: AlignmentDirectional.center,
-              child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        'RH para sua empresa',
-                        textStyle: const TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.bold,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DefaultTextStyle(
+                    style: TextStyle(
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'RH para sua empresa',
+                          textStyle: const TextStyle(
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          speed: const Duration(milliseconds: 200),
                         ),
-                        speed: const Duration(milliseconds: 200),
-                      ),
-                    ],
-                    totalRepeatCount: 1,
-                  )),
+                      ],
+                      totalRepeatCount: 1,
+                    )),
+              ],
             ),
             SizedBox(
               height: 48.0,
@@ -91,7 +98,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
-              title: 'ENTRAR',
+              title: 'Entrar',
             ),
             RoundedButton(
               onPressed: () {
