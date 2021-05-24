@@ -5,20 +5,20 @@ const kCorRoxoCheckout = Color.fromRGBO(84, 47, 99, 10);
 const kCorVermelhoCheckout = Color.fromRGBO(255, 24, 33, 10);
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: kCorAzulCheckout,
   fontWeight: FontWeight.bold,
   fontSize: 18.0,
 );
 
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  hintText: 'Type your message here...',
+  hintText: 'Digite seu mensagem...',
   border: InputBorder.none,
 );
 
 const kMessageContainerDecoration = BoxDecoration(
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: kCorAzulCheckout, width: 2.0),
   ),
 );
 
