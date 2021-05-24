@@ -35,6 +35,25 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
+  void getMessagens() async {
+    _firestore
+        .collection('mensagens')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        print(doc.data());
+      });
+    });
+  }
+
+  void mensagensStream() async {
+    await _firestore.collection('mensagens').snapshots().forEach((snapshot) {
+      snapshot.docs.forEach((mensagens) {
+        print(mensagens.data()['texto']);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +63,9 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                _auth.signOut();
-                Navigator.pop(context);
+                mensagensStream();
+                // _auth.signOut();
+                // Navigator.pop(context);
               }),
         ],
         title: Text('CHAT'),
