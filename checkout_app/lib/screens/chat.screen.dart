@@ -19,7 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
     getCurrentUser();
   }
 
-  void getCurrentUser() async {
+  void getCurrentUser() {
     try {
       final user = _auth.currentUser;
       if (user != null) {
