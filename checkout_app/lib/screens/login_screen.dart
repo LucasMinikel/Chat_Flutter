@@ -14,53 +14,55 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kCorAzulCheckout,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Hero(
-              tag: 'logo',
-              child: Container(
-                height: 200.0,
-                child: Image.asset('resources/img/logo.png'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Hero(
+                tag: 'logo',
+                child: Container(
+                  height: 200.0,
+                  child: Image.asset('resources/img/logo.png'),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 48.0,
-            ),
-            TextField(
-                style: TextStyle(color: Colors.white),
-                onChanged: (value) {
-                  //Do something with the user input.
+              SizedBox(
+                height: 48.0,
+              ),
+              TextField(
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Digite seu email.')),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    //Do something with the user input.
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Digite sua senha.')),
+              SizedBox(
+                height: 24.0,
+              ),
+              RoundedButton(
+                onPressed: () {},
+                title: 'ENTRAR',
+              ),
+              RoundedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, WelcomeScreen.id);
                 },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Digite seu email.')),
-            SizedBox(
-              height: 8.0,
-            ),
-            TextField(
-                style: TextStyle(color: Colors.white),
-                onChanged: (value) {
-                  //Do something with the user input.
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Digite sua senha.')),
-            SizedBox(
-              height: 24.0,
-            ),
-            RoundedButton(
-              onPressed: () {},
-              title: 'ENTRAR',
-            ),
-            RoundedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, WelcomeScreen.id);
-              },
-              title: 'VOLTAR',
-            ),
-          ],
+                title: 'VOLTAR',
+              ),
+            ],
+          ),
         ),
       ),
     );

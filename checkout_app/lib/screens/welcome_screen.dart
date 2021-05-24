@@ -63,27 +63,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               height: 48.0,
             ),
             Container(
-              alignment: AlignmentDirectional.center,
-              child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 45,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        'RH para sua empresa',
-                        textStyle: const TextStyle(
-                          fontSize: 32.0,
+                alignment: AlignmentDirectional.center,
+                child: AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                      'RH para sua empresa',
+                      textStyle: const TextStyle(
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
-                        ),
-                        speed: const Duration(milliseconds: 200),
-                      ),
-                    ],
-                    totalRepeatCount: 1,
-                  )),
-            ),
+                          color: Colors.white),
+                      speed: const Duration(milliseconds: 200),
+                    ),
+                  ],
+                  totalRepeatCount: 1,
+                )),
             SizedBox(
               height: 48.0,
             ),
