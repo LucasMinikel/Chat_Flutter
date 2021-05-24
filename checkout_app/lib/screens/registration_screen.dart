@@ -1,7 +1,9 @@
 import 'package:checkout_app/components/RoundedButton.dart';
 import 'package:checkout_app/constants.dart';
+import 'package:checkout_app/screens/chat.screen.dart';
 import 'package:checkout_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -10,8 +12,9 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _auth = FirebaseAuth.instance;
   String email;
-  String passaword;
+  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white),
                   onChanged: (value) {
-                    passaword = value;
+                    password = value;
                   },
                   decoration: kTextFieldDecoration.copyWith(
                       hintText: 'Digite sua senha.')),
@@ -59,9 +62,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 24.0,
               ),
               RoundedButton(
-                onPressed: () {
-                  print(email);
-                  print(passaword);
+                onPressed: () async {
+                  try {
+                    final newuser = await _auth.createUserWithEmailAndPassword(
+                        email: email, password: password);
+                    if (newuser != null) {
+                      Navigator.pushNamed(context, ChatScreen.id);
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 },
                 title: 'CRIAR',
               ),
