@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:checkout_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -10,7 +11,10 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
+
   User loggedInUser;
+  String mensagemTexto;
 
   @override
   void initState() {
@@ -40,11 +44,12 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
-        title: Text('⚡️Chat'),
-        backgroundColor: Colors.lightBlueAccent,
+        title: Text('CHAT'),
+        backgroundColor: kCorRoxoCheckout,
       ),
       body: SafeArea(
         child: Column(
@@ -59,17 +64,21 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        //Do something with the user input.
+                        mensagemTexto = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
                   TextButton(
                     onPressed: () {
-                      //Implement send functionality.
+                      _firestore.collection('mensagens').add({
+                        'texto': mensagemTexto,
+                        'remetente': loggedInUser.email,
+                        'data_envio': DateTime.now(),
+                      });
                     },
                     child: Text(
-                      'Send',
+                      'Enviar',
                       style: kSendButtonTextStyle,
                     ),
                   ),
