@@ -2,9 +2,12 @@ import 'package:checkout_app/components/RoundedButton.dart';
 import 'package:checkout_app/constants.dart';
 import 'package:checkout_app/screens/home_screen.dart';
 import 'package:checkout_app/screens/welcome_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 class RegistrationScreen extends StatefulWidget {
   static const String id = 'registration_screen';
@@ -16,6 +19,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
 
   bool showSpinner = false;
+  String nome;
   String email;
   String password;
 
@@ -40,8 +44,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
               ),
+              TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    nome = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Nome de usuario')),
               SizedBox(
-                height: 48.0,
+                height: 8.0,
               ),
               TextField(
                   keyboardType: TextInputType.emailAddress,
@@ -50,8 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   onChanged: (value) {
                     email = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Digite seu email.')),
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'Email')),
               SizedBox(
                 height: 8.0,
               ),
@@ -62,8 +74,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   onChanged: (value) {
                     password = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(
-                      hintText: 'Digite sua senha.')),
+                  decoration: kTextFieldDecoration.copyWith(hintText: 'Senha')),
               SizedBox(
                 height: 24.0,
               ),
@@ -76,6 +87,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     final newuser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newuser != null) {
+                      _firestore.collection('users').add({
+                        'nome_usuario': nome,
+                        'uid': newuser.user.uid,
+                        'data_cadastro': DateTime.now(),
+                      });
                       Navigator.pushNamed(context, HomeScreen.id);
                     }
                     setState(() {

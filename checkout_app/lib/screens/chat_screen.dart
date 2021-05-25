@@ -1,3 +1,4 @@
+import 'package:checkout_app/components/MessagensStream.dart';
 import 'package:checkout_app/functions/getCurentUser.dart';
 import 'package:flutter/material.dart';
 import 'package:checkout_app/constants.dart';
@@ -27,9 +28,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
         title: Text('CHAT'),
-        backgroundColor: kCorRoxoCheckout,
+        backgroundColor: kCorAzulCheckout,
       ),
       body: SafeArea(
         child: Column(
@@ -71,97 +71,6 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class MessagensStream extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream:
-          _firestore.collection('mensagens').orderBy('data_envio').snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: kCorAzulCheckout,
-            ),
-          );
-        }
-        final messages = snapshot.data.docs.reversed;
-        List<MessageBuble> messageBubbles = [];
-        for (var message in messages) {
-          final messageText = message['texto'];
-          final messageSender = message['remetente'];
-
-          final currentUser = getCurrentUser().email;
-
-          final messageBubble = MessageBuble(
-            remetente: messageSender,
-            texto: messageText,
-            isMe: currentUser == messageSender,
-          );
-
-          messageBubbles.add(messageBubble);
-        }
-        return Expanded(
-          child: ListView(
-            reverse: true,
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-            children: messageBubbles,
-          ),
-        );
-      },
-    );
-  }
-}
-
-class MessageBuble extends StatelessWidget {
-  MessageBuble({this.remetente, this.texto, this.isMe});
-
-  final String remetente;
-  final String texto;
-  final bool isMe;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: <Widget>[
-          Material(
-            borderRadius: isMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30))
-                : BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30)),
-            elevation: 5,
-            color: isMe ? kCorAzulCheckout : Colors.white,
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(
-                texto,
-                style: TextStyle(
-                    fontSize: 15, color: isMe ? Colors.white : Colors.black),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              remetente,
-              style: TextStyle(fontSize: 12, color: Colors.black54),
-            ),
-          ),
-        ],
       ),
     );
   }
