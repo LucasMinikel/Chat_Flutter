@@ -35,24 +35,24 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void getMessagens() async {
-    _firestore
-        .collection('mensagens')
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        print(doc.data());
-      });
-    });
-  }
+  // void getMessagens() async {
+  //   _firestore
+  //       .collection('mensagens')
+  //       .get()
+  //       .then((QuerySnapshot querySnapshot) {
+  //     querySnapshot.docs.forEach((doc) {
+  //       print(doc.data());
+  //     });
+  //   });
+  // }
 
-  void mensagensStream() async {
-    await _firestore.collection('mensagens').snapshots().forEach((snapshot) {
-      snapshot.docs.forEach((mensagens) {
-        print(mensagens.data()['texto']);
-      });
-    });
-  }
+  // void mensagensStream() async {
+  //   await _firestore.collection('mensagens').snapshots().forEach((snapshot) {
+  //     snapshot.docs.forEach((mensagens) {
+  //       print(mensagens.data()['texto']);
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +63,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                mensagensStream();
-                // _auth.signOut();
-                // Navigator.pop(context);
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         title: Text('CHAT'),
@@ -76,6 +75,24 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('mensagens').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final mensagens = snapshot.data.docs;
+                    List<Text> mensagensWidgets = [];
+                    mensagens.forEach((mensagens) {
+                      final mensagemTexto = mensagens['texto'];
+                      final mensagensRemetente = mensagens['remetente'];
+                      final messageWiget =
+                          Text('$mensagemTexto de $mensagensRemetente');
+                      mensagensWidgets.add(messageWiget);
+                    });
+                    return Column(
+                      children: mensagensWidgets,
+                    );
+                  }
+                }),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
