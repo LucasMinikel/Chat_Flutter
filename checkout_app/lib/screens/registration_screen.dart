@@ -25,79 +25,78 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       backgroundColor: kCorAzulCheckout,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Hero(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Flexible(
+                child: Hero(
                   tag: 'logo',
                   child: Container(
                     height: 200.0,
                     child: Image.asset('resources/img/logo.png'),
                   ),
                 ),
-                SizedBox(
-                  height: 48.0,
-                ),
-                TextField(
-                    keyboardType: TextInputType.emailAddress,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                    onChanged: (value) {
-                      email = value;
-                    },
-                    decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Digite seu email.')),
-                SizedBox(
-                  height: 8.0,
-                ),
-                TextField(
-                    obscureText: true,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                    onChanged: (value) {
-                      password = value;
-                    },
-                    decoration: kTextFieldDecoration.copyWith(
-                        hintText: 'Digite sua senha.')),
-                SizedBox(
-                  height: 24.0,
-                ),
-                RoundedButton(
-                  onPressed: () async {
-                    setState(() {
-                      showSpinner = true;
-                    });
-                    try {
-                      final newuser =
-                          await _auth.createUserWithEmailAndPassword(
-                              email: email, password: password);
-                      if (newuser != null) {
-                        Navigator.pushNamed(context, ChatScreen.id);
-                      }
-                      setState(() {
-                        showSpinner = false;
-                      });
-                    } catch (e) {
-                      print(e);
-                      setState(() {
-                        showSpinner = false;
-                      });
+              ),
+              SizedBox(
+                height: 48.0,
+              ),
+              TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    email = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Digite seu email.')),
+              SizedBox(
+                height: 8.0,
+              ),
+              TextField(
+                  obscureText: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    password = value;
+                  },
+                  decoration: kTextFieldDecoration.copyWith(
+                      hintText: 'Digite sua senha.')),
+              SizedBox(
+                height: 24.0,
+              ),
+              RoundedButton(
+                onPressed: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try {
+                    final newuser = await _auth.createUserWithEmailAndPassword(
+                        email: email, password: password);
+                    if (newuser != null) {
+                      Navigator.pushNamed(context, ChatScreen.id);
                     }
-                  },
-                  title: 'CRIAR',
-                ),
-                RoundedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, WelcomeScreen.id);
-                  },
-                  title: 'VOLTAR',
-                ),
-              ],
-            ),
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  } catch (e) {
+                    print(e);
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  }
+                },
+                title: 'CRIAR',
+              ),
+              RoundedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, WelcomeScreen.id);
+                },
+                title: 'VOLTAR',
+              ),
+            ],
           ),
         ),
       ),

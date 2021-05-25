@@ -3,6 +3,8 @@ import 'package:checkout_app/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+final _firestore = FirebaseFirestore.instance;
+
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
   @override
@@ -11,7 +13,8 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final _auth = FirebaseAuth.instance;
-  final _firestore = FirebaseFirestore.instance;
+
+  final mensagemTextController = TextEditingController();
 
   User loggedInUser;
   String mensagemTexto;
@@ -57,7 +60,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: kCorAzulCheckout,
       appBar: AppBar(
         leading: null,
         actions: <Widget>[
@@ -76,34 +78,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('mensagens').snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final mensagens = snapshot.data.docs;
-                  List<MessageBuble> mensagensBubble = [];
-                  mensagens.forEach(
-                    (mensagens) {
-                      final mensagemTexto = mensagens['texto'];
-                      final mensagensRemetente = mensagens['remetente'];
-
-                      final messageBubble = MessageBuble(
-                        texto: mensagemTexto,
-                        remetente: mensagensRemetente,
-                      );
-                      mensagensBubble.add(messageBubble);
-                    },
-                  );
-                  return Expanded(
-                    child: ListView(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                      children: mensagensBubble,
-                    ),
-                  );
-                }
-              },
-            ),
+            MessagensStream(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -111,7 +86,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      style: TextStyle(color: Colors.white),
+                      controller: mensagemTextController,
+                      style: TextStyle(color: Colors.black),
                       onChanged: (value) {
                         mensagemTexto = value;
                       },
@@ -125,6 +101,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         'remetente': loggedInUser.email,
                         'data_envio': DateTime.now(),
                       });
+                      mensagemTextController.clear();
                     },
                     child: Text(
                       'Enviar',
@@ -137,6 +114,39 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class MessagensStream extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('mensagens').snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final mensagens = snapshot.data.docs;
+          List<MessageBuble> mensagensBubble = [];
+          mensagens.forEach(
+            (mensagens) {
+              final mensagemTexto = mensagens['texto'];
+              final mensagensRemetente = mensagens['remetente'];
+
+              final messageBubble = MessageBuble(
+                texto: mensagemTexto,
+                remetente: mensagensRemetente,
+              );
+              mensagensBubble.add(messageBubble);
+            },
+          );
+          return Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              children: mensagensBubble,
+            ),
+          );
+        }
+      },
     );
   }
 }
