@@ -13,6 +13,7 @@ const kSendButtonTextStyle = TextStyle(
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Digite seu mensagem...',
+  hintStyle: TextStyle(color: Colors.grey),
   border: InputBorder.none,
 );
 

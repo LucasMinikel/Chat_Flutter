@@ -57,6 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: kCorAzulCheckout,
       appBar: AppBar(
         leading: null,
         actions: <Widget>[
@@ -76,23 +77,33 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('mensagens').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final mensagens = snapshot.data.docs;
-                    List<Text> mensagensWidgets = [];
-                    mensagens.forEach((mensagens) {
+              stream: _firestore.collection('mensagens').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final mensagens = snapshot.data.docs;
+                  List<MessageBuble> mensagensBubble = [];
+                  mensagens.forEach(
+                    (mensagens) {
                       final mensagemTexto = mensagens['texto'];
                       final mensagensRemetente = mensagens['remetente'];
-                      final messageWiget =
-                          Text('$mensagemTexto de $mensagensRemetente');
-                      mensagensWidgets.add(messageWiget);
-                    });
-                    return Column(
-                      children: mensagensWidgets,
-                    );
-                  }
-                }),
+
+                      final messageBubble = MessageBuble(
+                        texto: mensagemTexto,
+                        remetente: mensagensRemetente,
+                      );
+                      mensagensBubble.add(messageBubble);
+                    },
+                  );
+                  return Expanded(
+                    child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                      children: mensagensBubble,
+                    ),
+                  );
+                }
+              },
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -100,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      style: TextStyle(color: Colors.white),
                       onChanged: (value) {
                         mensagemTexto = value;
                       },
@@ -124,6 +136,41 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessageBuble extends StatelessWidget {
+  MessageBuble({this.remetente, this.texto});
+
+  final String remetente;
+  final String texto;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Material(
+            borderRadius: BorderRadius.circular(30),
+            elevation: 5,
+            color: Colors.lightBlueAccent,
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                texto,
+                style: TextStyle(fontSize: 15),
+              ),
+            ),
+          ),
+          Text(
+            remetente,
+            style: TextStyle(fontSize: 12, color: Colors.black54),
+          ),
+        ],
       ),
     );
   }
