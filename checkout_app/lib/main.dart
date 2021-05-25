@@ -1,4 +1,5 @@
-import 'package:checkout_app/screens/chat.screen.dart';
+import 'package:checkout_app/screens/chat_screen.dart';
+import 'package:checkout_app/screens/home_screen.dart';
 import 'package:checkout_app/screens/login_screen.dart';
 import 'package:checkout_app/screens/registration_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +21,7 @@ class App extends StatelessWidget {
         WelcomeScreen.id: (context) => WelcomeScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         RegistrationScreen.id: (context) => RegistrationScreen(),
+        HomeScreen.id: (context) => HomeScreen(),
         ChatScreen.id: (context) => ChatScreen(),
       },
     );

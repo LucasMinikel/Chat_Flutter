@@ -1,6 +1,6 @@
 import 'package:checkout_app/components/RoundedButton.dart';
 import 'package:checkout_app/constants.dart';
-import 'package:checkout_app/screens/chat.screen.dart';
+import 'package:checkout_app/screens/home_screen.dart';
 import 'package:checkout_app/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -76,13 +76,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     final newuser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newuser != null) {
-                      Navigator.pushNamed(context, ChatScreen.id);
+                      Navigator.pushNamed(context, HomeScreen.id);
                     }
                     setState(() {
                       showSpinner = false;
                     });
                   } catch (e) {
-                    print(e);
                     setState(() {
                       showSpinner = false;
                     });
